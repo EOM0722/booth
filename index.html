@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>KOBN한국마이크로바이옴학회 부스</title>
 
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CE1EYN5DVC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-CE1EYN5DVC');
+</script>
+
 <!-- ▼▼▼ 필요한 값만 여기서 수정하세요 ▼▼▼ -->
 <!--
   1. 인스타그램:  아래 INSTAGRAM 링크의 계정아이디 부분 교체
@@ -120,8 +129,7 @@
   .gift .g-txt{font-size:13.5px;line-height:1.55;color:#dbe8ff;letter-spacing:-.01em;}
   .gift .g-txt b{color:#fff;font-weight:800;}
 
-  /* ▼ 브로슈어 이미지 2장 (경품 박스 아래)
-       탭하면 큰 화면으로 볼 수 있게 링크로 감쌈 */
+  /* ▼ 브로슈어 이미지 2장 (탭하면 큰 화면으로 볼 수 있게 링크로 감쌈) */
   .brochure{margin-top:20px;width:100%;display:flex;flex-direction:column;gap:12px;}
   .brochure .b-cap{font-size:12px;font-weight:700;color:#8fb3ee;letter-spacing:.02em;text-align:center;margin-bottom:2px;}
   .brochure a{display:block;border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(3,15,40,.35);
@@ -214,5 +222,33 @@
 
     <p class="footer">© KOBN · 한국마이크로바이옴학회 부스 이벤트</p>
   </main>
+
+<script>
+  // 버튼/로고/브로슈어 클릭을 GA 이벤트로 전송
+  function track(name, label){
+    if(typeof gtag === 'function'){
+      gtag('event', name, { 'event_category': 'booth', 'event_label': label });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var map = [
+      ['.btn-insta','click_instagram','instagram'],
+      ['.btn-kakao','click_kakao','kakao'],
+      ['.btn-yt','click_youtube','youtube']
+    ];
+    map.forEach(function(m){
+      var el = document.querySelector(m[0]);
+      if(el){ el.addEventListener('click', function(){ track(m[1], m[2]); }); }
+    });
+    document.querySelectorAll('.partner').forEach(function(el, i){
+      el.addEventListener('click', function(){ track('click_partner', 'partner_'+(i+1)); });
+    });
+    var kobn = document.querySelector('.logo-wrap');
+    if(kobn){ kobn.addEventListener('click', function(){ track('click_kobn_logo','kobn'); }); }
+    document.querySelectorAll('.brochure a').forEach(function(el, i){
+      el.addEventListener('click', function(){ track('click_brochure', 'brochure_'+(i+1)); });
+    });
+  });
+</script>
 </body>
 </html>
