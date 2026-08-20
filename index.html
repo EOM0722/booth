@@ -119,6 +119,16 @@
   .gift .g-ico{font-size:22px;line-height:1;flex:0 0 auto;}
   .gift .g-txt{font-size:13.5px;line-height:1.55;color:#dbe8ff;letter-spacing:-.01em;}
   .gift .g-txt b{color:#fff;font-weight:800;}
+
+  /* ▼ 브로슈어 이미지 2장 (경품 박스 아래)
+       탭하면 큰 화면으로 볼 수 있게 링크로 감쌈 */
+  .brochure{margin-top:20px;width:100%;display:flex;flex-direction:column;gap:12px;}
+  .brochure .b-cap{font-size:12px;font-weight:700;color:#8fb3ee;letter-spacing:.02em;text-align:center;margin-bottom:2px;}
+  .brochure a{display:block;border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(3,15,40,.35);
+    background:#fff;transition:transform .12s ease;}
+  .brochure a:active{transform:scale(.99);}
+  .brochure img{width:100%;height:auto;display:block;}
+
   .sponsor{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:4px;}
   .sponsor .s-cap{font-size:11px;font-weight:600;color:#7896c4;letter-spacing:.08em;text-transform:uppercase;}
   .sponsor .s-name{font-size:15px;font-weight:800;color:#cddffb;letter-spacing:-.01em;}
@@ -187,6 +197,13 @@
     <div class="gift">
       <span class="g-ico">🎁</span>
       <span class="g-txt"><b>경품 받는 법</b><br>세 채널을 추가하신 뒤, <b>팔로우·추가 완료 화면</b>을 부스 담당자에게 보여주시면 경품을 드립니다.</span>
+    </div>
+
+    <!-- ▼ 브로슈어 이미지 2장 (탭하면 크게 볼 수 있음) -->
+    <div class="brochure">
+      <p class="b-cap">KOBN 소개 안내 (탭하면 크게 보기)</p>
+      <a href="book2.jpg" target="_blank" rel="noopener"><img src="book2.jpg" alt="KOBN 브로슈어 앞면"></a>
+      <a href="book1.jpg" target="_blank" rel="noopener"><img src="book1.jpg" alt="KOBN 브로슈어 뒷면"></a>
     </div>
 
     <div class="sponsor">
