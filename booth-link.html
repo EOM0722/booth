@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>사과나무학술대회 · 부스</title>
+
+<!-- ▼▼▼ 필요한 값만 여기서 수정하세요 ▼▼▼ -->
+<!--
+  1. 인스타그램:  아래 INSTAGRAM 링크의 계정아이디 부분 교체
+  2. 카카오채널:  아래 KAKAO 링크의 채널ID 부분 교체 (pf.kakao.com/_채널ID)
+  3. 유튜브:      아래 YOUTUBE 링크 교체
+  4. 로고:        <img class="logo" ...> 의 src를 본인 로고 파일명으로
+  5. 제목/문구:   .title / .subtitle 텍스트 수정
+
+  ※ 운영 방식
+     - 방문자는 "본인 휴대폰"으로 QR 스캔 → 자기 계정으로 팔로우/추가
+     - 실제 전환 수는 카카오채널·유튜브·인스타 "관리자 통계"로 확인
+     - 경품은 방문자가 완료 화면을 담당자에게 보여주면 지급
+-->
+
+<style>
+  :root{
+    --navy:#0a2540; --blue:#1a5fd4; --blue-light:#3b82f6; --sky:#e8f1ff;
+    --ink:#0a2540; --white:#ffffff;
+    --insta1:#feda75; --insta2:#d62976; --insta3:#4f5bd5;
+    --kakao-bg:#FEE500; --kakao-ink:#191600; --yt:#FF0033;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #1e6fe8 0%, transparent 60%),
+      linear-gradient(180deg, #0a2540 0%, #123a6b 55%, #0a2540 100%);
+    color:var(--white);min-height:100dvh;
+    display:flex;align-items:center;justify-content:center;
+    padding:32px 22px calc(32px + env(safe-area-inset-bottom));overflow-x:hidden;
+  }
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(600px 300px at 15% 20%, rgba(59,130,246,.18), transparent 70%),
+      radial-gradient(500px 300px at 85% 80%, rgba(26,95,212,.20), transparent 70%);pointer-events:none;}
+  .card{position:relative;width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;
+    animation:rise .7s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  /* ▼ 맨 위 KOBN 로고 박스 크기 조절
+       --logo-w   : 박스 가로 너비 (예: 190px, 220px)
+       --logo-h   : 박스 세로 높이 (예: 120px, 140px)
+       --logo-pad : 로고와 박스 사이 안쪽 여백 (예: 16px 20px = 위아래 좌우) */
+  .logo-wrap{
+    --logo-w:190px;
+    --logo-h:120px;
+    --logo-pad:16px 20px;
+    width:var(--logo-w);height:var(--logo-h);
+    border-radius:26px;background:rgba(255,255,255,.95);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 12px 40px rgba(3,20,50,.45);
+    overflow:hidden;margin-bottom:24px;
+    text-decoration:none;cursor:pointer;transition:transform .12s ease;}
+  .logo-wrap:active{transform:scale(.97);}
+  .logo{width:100%;height:100%;object-fit:contain;padding:var(--logo-pad);}
+  .logo-fallback{font-size:15px;font-weight:800;color:var(--blue);text-align:center;line-height:1.3;letter-spacing:-.02em;}
+  .title{font-size:26px;font-weight:800;letter-spacing:-.03em;text-align:center;line-height:1.25;}
+  .subtitle{margin-top:10px;font-size:15px;font-weight:500;color:#bcd2f5;text-align:center;line-height:1.5;letter-spacing:-.01em;}
+
+  /* 협력 기관 로고 4개 */
+  .partners{margin-top:16px;margin-bottom:4px;width:100%;display:grid;grid-template-columns:repeat(4,1fr);}
+  /* ▼ 아래 기관 로고 4개 박스 크기 조절
+       --pt-gap    : 로고 사이 간격 (예: 9px, 14px)
+       --pt-radius : 박스 모서리 둥글기 (예: 13px)
+       --pt-pad    : 로고와 박스 사이 안쪽 여백 (예: 8px, 12px) */
+  .partners{--pt-gap:6px;gap:var(--pt-gap);}
+  .partner{
+    --pt-radius:13px;
+    --pt-pad:8px;
+    aspect-ratio:1/1;border-radius:var(--pt-radius);background:rgba(255,255,255,.95);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    box-shadow:0 4px 14px rgba(3,20,50,.28);
+    text-decoration:none;cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;}
+  .partner:active{transform:scale(.96);}
+  .partner img{width:100%;height:100%;object-fit:contain;padding:var(--pt-pad);}
+  .partner .p-fallback{font-size:10px;font-weight:700;color:#8ba3c7;}
+
+  /* 본인 폰 스캔 안내 */
+  .selfphone{margin-top:16px;display:inline-flex;align-items:center;gap:8px;
+    background:rgba(59,130,246,.18);border:1px solid rgba(124,176,255,.35);
+    border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;color:#d6e6ff;letter-spacing:-.01em;}
+
+  .divider{width:40px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--blue-light),#7cb0ff);margin:24px 0 8px;}
+  .prompt{font-size:13px;font-weight:600;color:#8fb3ee;letter-spacing:.02em;margin-bottom:18px;}
+  .btns{width:100%;display:flex;flex-direction:column;gap:13px;}
+  .btn{display:flex;align-items:center;gap:15px;width:100%;padding:16px 20px;border-radius:18px;
+    text-decoration:none;font-size:16.5px;font-weight:700;letter-spacing:-.02em;
+    box-shadow:0 6px 22px rgba(3,15,40,.30);transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    position:relative;cursor:pointer;}
+  .btn:active{transform:scale(.975);filter:brightness(.97);}
+  .btn .ico{width:38px;height:38px;flex:0 0 38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.22);}
+  .btn .ico svg{width:22px;height:22px;display:block;}
+  .btn .label{flex:1;}
+  .btn .chev{opacity:.55;flex:0 0 auto;}
+  .btn-insta{background:linear-gradient(120deg,var(--insta1) 0%, var(--insta2) 50%, var(--insta3) 100%);color:#fff;}
+  .btn-insta .ico{background:rgba(255,255,255,.25);}
+  .btn-kakao{background:var(--kakao-bg);color:var(--kakao-ink);}
+  .btn-kakao .ico{background:rgba(0,0,0,.10);} .btn-kakao .chev{opacity:.4;}
+  .btn-yt{background:#ffffff;color:#0f0f0f;}
+  .btn-yt .ico{background:rgba(255,0,51,.10);} .btn-yt .chev{opacity:.4;}
+  /* ▼ 경품 박스 크기 조절: 아래 3개 값만 바꾸면 됩니다
+       --gift-width  : 박스 가로 너비 (예: 100%, 90%, 340px)
+       --gift-pad-y  : 박스 위아래 안쪽 여백 (예: 15px, 22px)
+       --gift-pad-x  : 박스 좌우 안쪽 여백 (예: 17px, 24px)          */
+  .gift{
+    --gift-width:100%;
+    --gift-pad-y:15px;
+    --gift-pad-x:17px;
+    width:var(--gift-width);max-width:100%;margin:22px auto 0;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+    border-radius:16px;padding:var(--gift-pad-y) var(--gift-pad-x);
+    display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;}
+  .gift .g-ico{font-size:22px;line-height:1;flex:0 0 auto;}
+  .gift .g-txt{font-size:13.5px;line-height:1.55;color:#dbe8ff;letter-spacing:-.01em;}
+  .gift .g-txt b{color:#fff;font-weight:800;}
+  .sponsor{margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .sponsor .s-cap{font-size:11px;font-weight:600;color:#7896c4;letter-spacing:.08em;text-transform:uppercase;}
+  .sponsor .s-name{font-size:15px;font-weight:800;color:#cddffb;letter-spacing:-.01em;}
+  .footer{margin-top:16px;font-size:12px;color:#7896c4;text-align:center;letter-spacing:.01em;}
+  @media (max-width:360px){.title{font-size:23px;}.btn{font-size:15.5px;padding:15px 17px;}}
+  @media (prefers-reduced-motion:reduce){.card{animation:none;}.btn{transition:none;}}
+</style>
+</head>
+<body>
+  <main class="card">
+    <!-- ▼ 맨 위 KOBN 로고 클릭 시 이동할 주소를 href="" 안에 넣으세요 -->
+    <a class="logo-wrap" href="https://www.kbn.re.kr/kbn/main.do" target="_blank" rel="noopener">
+      <img class="logo" src="logo.png" alt="로고"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="logo-fallback" style="display:none;">여기에<br>로고</div>
+    </a>
+
+    <h1 class="title">한국마이크로바이옴학회</h1>
+
+    <div class="partners">
+      <!-- ▼ 각 기관 로고 클릭 시 이동할 사이트 주소를 href="" 안에 넣으세요 -->
+      <a class="partner" href="https://www.snudh.org/portal/index.do" target="_blank" rel="noopener"><img src="logo1.png" alt="기관1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고1</span></a>
+      <a class="partner" href="https://dental.severance.healthcare/dental/index.do" target="_blank" rel="noopener"><img src="logo2.png" alt="기관2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고2</span></a>
+      <a class="partner" href="https://www.pnudh.co.kr/pnudh/main/main.do?cmnx=1" target="_blank" rel="noopener"><img src="logo3.png" alt="기관3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고3</span></a>
+      <a class="partner" href="https://appleden.com/rnd/rnd04.html" target="_blank" rel="noopener"><img src="logo4.png" alt="기관4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고4</span></a>
+    </div>
+    <p class="subtitle">KOBN부스에 방문해 주셔서 감사합니다.<br>채널을 팔로우하고 소식을 받아보세요.</p>
+
+    <span class="selfphone">📱 3채널 구독 및 팔로우해주시고 직원에게 보여주세요</span>
+
+    <div class="divider"></div>
+    <p class="prompt">아래 채널을 추가해 주세요 👇</p>
+
+    <nav class="btns">
+      <a class="btn btn-insta" href="https://www.instagram.com/gift__teeth/" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="#fff" stroke="none"/>
+          </svg>
+        </span>
+        <span class="label">인스타그램 팔로우</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="btn btn-kakao" href="https://pf.kakao.com/_UJxgPd" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="#191600">
+            <path d="M12 3C6.9 3 3 6.3 3 10.4c0 2.6 1.8 4.9 4.4 6.2-.2.7-.7 2.6-.8 3-.1.5.2.5.4.4.2-.1 2.7-1.8 3.7-2.5.4.1.9.1 1.3.1 5.1 0 9-3.3 9-7.2S17.1 3 12 3z"/>
+          </svg>
+        </span>
+        <span class="label">카카오톡 채널 추가</span>
+        <span class="chev">›</span>
+      </a>
+
+      <a class="btn btn-yt" href="https://www.youtube.com/@docsmedi" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24" fill="#FF0033">
+            <path d="M21.6 7.2s-.2-1.4-.8-2c-.7-.8-1.6-.8-2-.9C16 4.1 12 4.1 12 4.1h0s-4 0-6.8.2c-.4.1-1.3.1-2 .9-.6.6-.8 2-.8 2S2.2 8.8 2.2 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.7.8 1.7.8 2.1.9 1.5.1 6.7.2 6.7.2s4 0 6.8-.2c.4-.1 1.3-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.3v-1.6c0-1.7-.2-3.3-.2-3.3zM9.9 14.6V8.9l5.2 2.9-5.2 2.8z"/>
+          </svg>
+        </span>
+        <span class="label">유튜브 구독</span>
+        <span class="chev">›</span>
+      </a>
+    </nav>
+
+    <div class="gift">
+      <span class="g-ico">🎁</span>
+      <span class="g-txt"><b>경품 받는 법</b><br>세 채널을 추가하신 뒤, <b>팔로우·추가 완료 화면</b>을 부스 담당자에게 보여주시면 경품을 드립니다.</span>
+    </div>
+
+    <div class="sponsor">
+      <span class="s-cap">Sponsored by</span>
+      <span class="s-name">docsmedi</span>
+    </div>
+
+    <p class="footer">© KOBN · 한국마이크로바이옴학회 부스 이벤트</p>
+  </main>
+</body>
+</html>
