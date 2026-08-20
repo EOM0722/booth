@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>사과나무학술대회 · 부스</title>
+<title>KOBN한국마이크로바이옴학회 부스</title>
 
 <!-- ▼▼▼ 필요한 값만 여기서 수정하세요 ▼▼▼ -->
 <!--
@@ -32,9 +32,10 @@
     font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',-apple-system,BlinkMacSystemFont,sans-serif;
     background:radial-gradient(1200px 600px at 50% -10%, #1e6fe8 0%, transparent 60%),
       linear-gradient(180deg, #0a2540 0%, #123a6b 55%, #0a2540 100%);
+    background-attachment:fixed;
     color:var(--white);min-height:100dvh;
-    display:flex;align-items:center;justify-content:center;
-    padding:32px 22px calc(32px + env(safe-area-inset-bottom));overflow-x:hidden;
+    display:flex;align-items:flex-start;justify-content:center;
+    padding:32px 22px calc(40px + env(safe-area-inset-bottom));overflow-x:hidden;
   }
   body::before{content:"";position:fixed;inset:0;
     background:radial-gradient(600px 300px at 15% 20%, rgba(59,130,246,.18), transparent 70%),
@@ -68,7 +69,7 @@
        --pt-gap    : 로고 사이 간격 (예: 9px, 14px)
        --pt-radius : 박스 모서리 둥글기 (예: 13px)
        --pt-pad    : 로고와 박스 사이 안쪽 여백 (예: 8px, 12px) */
-  .partners{--pt-gap:6px;gap:var(--pt-gap);}
+  .partners{--pt-gap:9px;gap:var(--pt-gap);}
   .partner{
     --pt-radius:13px;
     --pt-pad:8px;
@@ -129,7 +130,7 @@
 <body>
   <main class="card">
     <!-- ▼ 맨 위 KOBN 로고 클릭 시 이동할 주소를 href="" 안에 넣으세요 -->
-    <a class="logo-wrap" href="https://www.kbn.re.kr/kbn/main.do" target="_blank" rel="noopener">
+    <a class="logo-wrap" href="https://example.com" target="_blank" rel="noopener">
       <img class="logo" src="logo.png" alt="로고"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
       <div class="logo-fallback" style="display:none;">여기에<br>로고</div>
@@ -139,10 +140,10 @@
 
     <div class="partners">
       <!-- ▼ 각 기관 로고 클릭 시 이동할 사이트 주소를 href="" 안에 넣으세요 -->
-      <a class="partner" href="https://www.snudh.org/portal/index.do" target="_blank" rel="noopener"><img src="logo1.png" alt="기관1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고1</span></a>
-      <a class="partner" href="https://dental.severance.healthcare/dental/index.do" target="_blank" rel="noopener"><img src="logo2.png" alt="기관2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고2</span></a>
-      <a class="partner" href="https://www.pnudh.co.kr/pnudh/main/main.do?cmnx=1" target="_blank" rel="noopener"><img src="logo3.png" alt="기관3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고3</span></a>
-      <a class="partner" href="https://appleden.com/rnd/rnd04.html" target="_blank" rel="noopener"><img src="logo4.png" alt="기관4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고4</span></a>
+      <a class="partner" href="https://example.com" target="_blank" rel="noopener"><img src="logo1.png" alt="기관1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고1</span></a>
+      <a class="partner" href="https://example.com" target="_blank" rel="noopener"><img src="logo2.png" alt="기관2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고2</span></a>
+      <a class="partner" href="https://example.com" target="_blank" rel="noopener"><img src="logo3.png" alt="기관3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고3</span></a>
+      <a class="partner" href="https://example.com" target="_blank" rel="noopener"><img src="logo4.png" alt="기관4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고4</span></a>
     </div>
     <p class="subtitle">KOBN부스에 방문해 주셔서 감사합니다.<br>채널을 팔로우하고 소식을 받아보세요.</p>
 
