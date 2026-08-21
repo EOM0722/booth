@@ -14,20 +14,6 @@
   gtag('config', 'G-CE1EYN5DVC');
 </script>
 
-<!-- ▼▼▼ 필요한 값만 여기서 수정하세요 ▼▼▼ -->
-<!--
-  1. 인스타그램:  아래 INSTAGRAM 링크의 계정아이디 부분 교체
-  2. 카카오채널:  아래 KAKAO 링크의 채널ID 부분 교체 (pf.kakao.com/_채널ID)
-  3. 유튜브:      아래 YOUTUBE 링크 교체
-  4. 로고:        <img class="logo" ...> 의 src를 본인 로고 파일명으로
-  5. 제목/문구:   .title / .subtitle 텍스트 수정
-
-  ※ 운영 방식
-     - 방문자는 "본인 휴대폰"으로 QR 스캔 → 자기 계정으로 팔로우/추가
-     - 실제 전환 수는 카카오채널·유튜브·인스타 "관리자 통계"로 확인
-     - 경품은 방문자가 완료 화면을 담당자에게 보여주면 지급
--->
-
 <style>
   :root{
     --navy:#0a2540; --blue:#1a5fd4; --blue-light:#3b82f6; --sky:#e8f1ff;
@@ -52,10 +38,6 @@
   .card{position:relative;width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;
     animation:rise .7s cubic-bezier(.2,.7,.2,1) both;}
   @keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-  /* ▼ 맨 위 KOBN 로고 박스 크기 조절
-       --logo-w   : 박스 가로 너비 (예: 190px, 220px)
-       --logo-h   : 박스 세로 높이 (예: 120px, 140px)
-       --logo-pad : 로고와 박스 사이 안쪽 여백 (예: 16px 20px = 위아래 좌우) */
   .logo-wrap{
     --logo-w:190px;
     --logo-h:120px;
@@ -72,12 +54,7 @@
   .title{font-size:26px;font-weight:800;letter-spacing:-.03em;text-align:center;line-height:1.25;}
   .subtitle{margin-top:10px;font-size:15px;font-weight:500;color:#bcd2f5;text-align:center;line-height:1.5;letter-spacing:-.01em;}
 
-  /* 협력 기관 로고 4개 */
   .partners{margin-top:16px;margin-bottom:4px;width:100%;display:grid;grid-template-columns:repeat(4,1fr);}
-  /* ▼ 아래 기관 로고 4개 박스 크기 조절
-       --pt-gap    : 로고 사이 간격 (예: 9px, 14px)
-       --pt-radius : 박스 모서리 둥글기 (예: 13px)
-       --pt-pad    : 로고와 박스 사이 안쪽 여백 (예: 8px, 12px) */
   .partners{--pt-gap:9px;gap:var(--pt-gap);}
   .partner{
     --pt-radius:13px;
@@ -90,7 +67,6 @@
   .partner img{width:100%;height:100%;object-fit:contain;padding:var(--pt-pad);}
   .partner .p-fallback{font-size:10px;font-weight:700;color:#8ba3c7;}
 
-  /* 본인 폰 스캔 안내 */
   .selfphone{margin-top:16px;display:inline-flex;align-items:center;gap:8px;
     background:rgba(59,130,246,.18);border:1px solid rgba(124,176,255,.35);
     border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;color:#d6e6ff;letter-spacing:-.01em;}
@@ -107,16 +83,33 @@
   .btn .ico svg{width:22px;height:22px;display:block;}
   .btn .label{flex:1;}
   .btn .chev{opacity:.55;flex:0 0 auto;}
+  /* 완료 체크 표시 */
+  .btn .done{flex:0 0 auto;font-size:14px;font-weight:800;display:none;align-items:center;gap:4px;}
+  .btn.checked .done{display:inline-flex;}
+  .btn.checked .chev{display:none;}
   .btn-insta{background:linear-gradient(120deg,var(--insta1) 0%, var(--insta2) 50%, var(--insta3) 100%);color:#fff;}
   .btn-insta .ico{background:rgba(255,255,255,.25);}
+  .btn-insta .done{color:#fff;}
   .btn-kakao{background:var(--kakao-bg);color:var(--kakao-ink);}
   .btn-kakao .ico{background:rgba(0,0,0,.10);} .btn-kakao .chev{opacity:.4;}
-  .btn-yt{background:#ffffff;color:#0f0f0f;}
-  .btn-yt .ico{background:rgba(255,0,51,.10);} .btn-yt .chev{opacity:.4;}
-  /* ▼ 경품 박스 크기 조절: 아래 3개 값만 바꾸면 됩니다
-       --gift-width  : 박스 가로 너비 (예: 100%, 90%, 340px)
-       --gift-pad-y  : 박스 위아래 안쪽 여백 (예: 15px, 22px)
-       --gift-pad-x  : 박스 좌우 안쪽 여백 (예: 17px, 24px)          */
+  .btn-kakao .done{color:#191600;}
+
+  /* 경품 받기 버튼 (비활성 → 활성) */
+  .claim{
+    margin-top:20px;width:100%;padding:17px 20px;border:none;border-radius:18px;
+    font-family:inherit;font-size:17px;font-weight:800;letter-spacing:-.02em;
+    display:flex;align-items:center;justify-content:center;gap:9px;cursor:not-allowed;
+    background:rgba(255,255,255,.12);color:#8fb3ee;
+    box-shadow:0 6px 22px rgba(3,15,40,.30);transition:transform .12s ease, filter .12s ease;}
+  .claim.ready{
+    cursor:pointer;color:#0a2540;
+    background:linear-gradient(120deg,#7cf0c0 0%, #3bd67f 50%, #1aa85f 100%);
+    animation:pulse 1.6s ease-in-out infinite;}
+  .claim.ready:active{transform:scale(.975);filter:brightness(.97);animation:none;}
+  @keyframes pulse{0%,100%{box-shadow:0 6px 22px rgba(26,168,95,.35);}50%{box-shadow:0 6px 30px rgba(26,168,95,.65);}}
+  .claim-note{margin-top:10px;font-size:12.5px;color:#8fb3ee;text-align:center;line-height:1.5;}
+  .claim-note b{color:#cfe3ff;}
+
   .gift{
     --gift-width:100%;
     --gift-pad-y:15px;
@@ -129,7 +122,6 @@
   .gift .g-txt{font-size:13.5px;line-height:1.55;color:#dbe8ff;letter-spacing:-.01em;}
   .gift .g-txt b{color:#fff;font-weight:800;}
 
-  /* ▼ 브로슈어 이미지 2장 (탭하면 큰 화면으로 볼 수 있게 링크로 감쌈) */
   .brochure{margin-top:20px;width:100%;display:flex;flex-direction:column;gap:12px;}
   .brochure .b-cap{font-size:12px;font-weight:700;color:#8fb3ee;letter-spacing:.02em;text-align:center;margin-bottom:2px;}
   .brochure a{display:block;border-radius:14px;overflow:hidden;box-shadow:0 6px 22px rgba(3,15,40,.35);
@@ -142,12 +134,44 @@
   .sponsor .s-name{font-size:15px;font-weight:800;color:#cddffb;letter-spacing:-.01em;text-decoration:none;cursor:pointer;}
   .footer{margin-top:16px;font-size:12px;color:#7896c4;text-align:center;letter-spacing:.01em;}
   @media (max-width:360px){.title{font-size:23px;}.btn{font-size:15.5px;padding:15px 17px;}}
-  @media (prefers-reduced-motion:reduce){.card{animation:none;}.btn{transition:none;}}
+  @media (prefers-reduced-motion:reduce){.card{animation:none;}.btn{transition:none;}.claim.ready{animation:none;}}
+
+  /* ▼ 인증 마크 오버레이 */
+  .overlay{
+    position:fixed;inset:0;z-index:100;display:none;
+    align-items:center;justify-content:center;padding:24px;
+    background:rgba(4,12,30,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .overlay.show{display:flex;animation:fade .3s ease both;}
+  @keyframes fade{from{opacity:0;}to{opacity:1;}}
+  .verify{
+    width:100%;max-width:340px;border-radius:26px;padding:34px 26px 28px;
+    background:linear-gradient(180deg,#ffffff 0%,#eef5ff 100%);color:#0a2540;
+    text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.5);
+    animation:pop .45s cubic-bezier(.2,.9,.3,1.2) both;position:relative;}
+  @keyframes pop{from{opacity:0;transform:scale(.85) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  .verify .seal{
+    width:96px;height:96px;margin:0 auto 16px;border-radius:50%;
+    background:linear-gradient(135deg,#3bd67f,#1aa85f);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 30px rgba(26,168,95,.5);
+    animation:sealpop .5s .15s cubic-bezier(.2,.9,.3,1.3) both;}
+  @keyframes sealpop{from{transform:scale(0) rotate(-30deg);}to{transform:scale(1) rotate(0);}}
+  .verify .seal svg{width:52px;height:52px;}
+  .verify h2{font-size:23px;font-weight:900;letter-spacing:-.03em;margin-bottom:6px;}
+  .verify p{font-size:14px;font-weight:600;color:#3b5578;line-height:1.55;}
+  .verify .code{
+    margin-top:16px;display:inline-block;padding:8px 16px;border-radius:12px;
+    background:#0a2540;color:#7cf0c0;font-size:15px;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums;}
+  .verify .stamp{margin-top:14px;font-size:12px;color:#6b83a6;font-weight:600;}
+  .verify .close{
+    margin-top:22px;width:100%;padding:13px;border:none;border-radius:14px;
+    font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;
+    background:#0a2540;color:#fff;}
+  .verify .close:active{filter:brightness(1.15);}
 </style>
 </head>
 <body>
   <main class="card">
-    <!-- ▼ 맨 위 KOBN 로고 클릭 시 이동할 주소를 href="" 안에 넣으세요 -->
     <a class="logo-wrap" href="https://www.kbn.re.kr/kbn/main.do" target="_blank" rel="noopener">
       <img class="logo" src="logo.png" alt="로고"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -155,7 +179,6 @@
     </a>
 
     <div class="partners">
-      <!-- ▼ 각 기관 로고 클릭 시 이동할 사이트 주소를 href="" 안에 넣으세요 -->
       <a class="partner" href="https://www.snudh.org/portal/index.do" target="_blank" rel="noopener"><img src="logo1.png" alt="기관1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고1</span></a>
       <a class="partner" href="https://dental.severance.healthcare/dental/index.do" target="_blank" rel="noopener"><img src="logo2.png" alt="기관2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고2</span></a>
       <a class="partner" href="https://www.pnudh.co.kr/pnudh/main/main.do?cmnx=1" target="_blank" rel="noopener"><img src="logo3.png" alt="기관3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><span class="p-fallback" style="display:none;">로고3</span></a>
@@ -163,7 +186,6 @@
     </div>
     <p class="subtitle">KOBN부스에 방문해 주셔서 감사합니다.<br>채널을 팔로우하고 소식을 받아보세요.</p>
 
-    <!-- ▼ 브로슈어 이미지 2장 (탭하면 크게 볼 수 있음) -->
     <div class="brochure">
       <p class="b-cap">KOBN 소개 안내 (탭하면 크게 보기)</p>
       <a href="book1.jpg" target="_blank" rel="noopener"><img src="book1.jpg" alt="KOBN 브로슈어 앞면"></a>
@@ -176,10 +198,10 @@
     <span class="selfphone">📱 3채널 구독 및 팔로우해주시고 직원에게 보여주세요</span>
 
     <div class="divider"></div>
-    <p class="prompt">아래 채널을 추가해 주세요 👇</p>
+    <p class="prompt">아래 채널을 모두 추가해 주세요 👇</p>
 
     <nav class="btns">
-      <a class="btn btn-insta" href="https://www.instagram.com/gift__teeth/" target="_blank" rel="noopener">
+      <a class="btn btn-insta" data-req="insta1" href="https://www.instagram.com/gift__teeth/" target="_blank" rel="noopener">
         <span class="ico">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="#fff" stroke="none"/>
@@ -187,9 +209,10 @@
         </span>
         <span class="label">Gift teeth 인스타그램 팔로우</span>
         <span class="chev">›</span>
+        <span class="done">✓ 완료</span>
       </a>
 
-      <a class="btn btn-insta" href="https://www.instagram.com/yuhsoralbiobank/" target="_blank" rel="noopener">
+      <a class="btn btn-insta" data-req="insta2" href="https://www.instagram.com/yuhsoralbiobank/" target="_blank" rel="noopener">
         <span class="ico">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="#fff" stroke="none"/>
@@ -197,9 +220,10 @@
         </span>
         <span class="label">Yonsei Oral Biobank 인스타그램 팔로우</span>
         <span class="chev">›</span>
+        <span class="done">✓ 완료</span>
       </a>
-      
-      <a class="btn btn-kakao" href="https://pf.kakao.com/_UJxgPd" target="_blank" rel="noopener">
+
+      <a class="btn btn-kakao" data-req="kakao" href="https://pf.kakao.com/_UJxgPd" target="_blank" rel="noopener">
         <span class="ico">
           <svg viewBox="0 0 24 24" fill="#191600">
             <path d="M12 3C6.9 3 3 6.3 3 10.4c0 2.6 1.8 4.9 4.4 6.2-.2.7-.7 2.6-.8 3-.1.5.2.5.4.4.2-.1 2.7-1.8 3.7-2.5.4.1.9.1 1.3.1 5.1 0 9-3.3 9-7.2S17.1 3 12 3z"/>
@@ -207,14 +231,19 @@
         </span>
         <span class="label">Sponsor 카카오톡 채널 추가</span>
         <span class="chev">›</span>
+        <span class="done">✓ 완료</span>
       </a>
-
-      
     </nav>
+
+    <!-- 경품 받기 버튼 -->
+    <button class="claim" id="claimBtn" type="button" disabled>
+      <span id="claimText">🔒 세 채널을 모두 눌러주세요 (0/3)</span>
+    </button>
+    <p class="claim-note">세 버튼을 모두 누르면 <b>경품 받기</b>가 활성화됩니다.<br>버튼을 눌러 나온 <b>인증 마크</b>를 부스 담당자에게 보여주세요.</p>
 
     <div class="gift">
       <span class="g-ico">🎁</span>
-      <span class="g-txt"><b>경품 받는 법</b><br>세 채널을 추가하신 뒤, <b>팔로우·추가 완료 화면</b>을 부스 담당자에게 보여주시면 경품을 드립니다.</span>
+      <span class="g-txt"><b>경품 받는 법</b><br>세 채널을 모두 추가하신 뒤 <b>경품 받기</b> 버튼을 누르면 <b>인증 마크</b>가 나옵니다. 이 화면을 부스 담당자에게 보여주세요.</span>
     </div>
 
     <div class="sponsor">
@@ -225,31 +254,86 @@
     <p class="footer">© KOBN · 한국마이크로바이옴학회 부스 이벤트</p>
   </main>
 
+  <!-- 인증 마크 오버레이 -->
+  <div class="overlay" id="overlay">
+    <div class="verify">
+      <div class="seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+      <h2>인증 완료 ✨</h2>
+      <p>세 채널 참여가 확인되었습니다.<br>아래 인증번호를 담당자에게 보여주세요.</p>
+      <div class="code" id="verifyCode">KOBN-000000</div>
+      <div class="stamp" id="verifyStamp"></div>
+      <button class="close" id="closeBtn" type="button">닫기</button>
+    </div>
+  </div>
+
 <script>
-  // 버튼/로고/브로슈어 클릭을 GA 이벤트로 전송
   function track(name, label){
     if(typeof gtag === 'function'){
       gtag('event', name, { 'event_category': 'booth', 'event_label': label });
     }
   }
-  document.addEventListener('DOMContentLoaded', function(){
-    var map = [
-      ['.btn-insta','click_instagram','instagram'],
-      ['.btn-kakao','click_kakao','kakao'],
-      ['.btn-yt','click_youtube','youtube']
-    ];
-    map.forEach(function(m){
-      var el = document.querySelector(m[0]);
-      if(el){ el.addEventListener('click', function(){ track(m[1], m[2]); }); }
+
+  var required = ['insta1','insta2','kakao'];
+  var done = {};
+  var claimBtn  = document.getElementById('claimBtn');
+  var claimText = document.getElementById('claimText');
+
+  function refresh(){
+    var count = Object.keys(done).length;
+    if(count >= required.length){
+      claimBtn.classList.add('ready');
+      claimBtn.disabled = false;
+      claimText.textContent = '🎁 경품 받기 (인증하기)';
+    } else {
+      claimText.textContent = '🔒 세 채널을 모두 눌러주세요 ('+count+'/3)';
+    }
+  }
+
+  // 각 채널 버튼: 클릭하면 링크는 새 탭으로 열리고, 완료 체크
+  document.querySelectorAll('.btn[data-req]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var key = el.getAttribute('data-req');
+      done[key] = true;
+      el.classList.add('checked');
+      if(key === 'kakao') track('click_kakao','kakao');
+      else track('click_instagram', key);
+      refresh();
     });
-    document.querySelectorAll('.partner').forEach(function(el, i){
-      el.addEventListener('click', function(){ track('click_partner', 'partner_'+(i+1)); });
-    });
-    var kobn = document.querySelector('.logo-wrap');
-    if(kobn){ kobn.addEventListener('click', function(){ track('click_kobn_logo','kobn'); }); }
-    document.querySelectorAll('.brochure a').forEach(function(el, i){
-      el.addEventListener('click', function(){ track('click_brochure', 'brochure_'+(i+1)); });
-    });
+  });
+
+  // 경품 받기 → 인증 마크
+  claimBtn.addEventListener('click', function(){
+    if(Object.keys(done).length < required.length) return;
+    var code = 'KOBN-' + Math.floor(100000 + Math.random()*900000);
+    document.getElementById('verifyCode').textContent = code;
+    var now = new Date();
+    var pad = function(n){ return (n<10?'0':'')+n; };
+    document.getElementById('verifyStamp').textContent =
+      '인증시각 ' + now.getFullYear() + '.' + pad(now.getMonth()+1) + '.' + pad(now.getDate())
+      + ' ' + pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+    document.getElementById('overlay').classList.add('show');
+    track('claim_verified','verified');
+  });
+
+  document.getElementById('closeBtn').addEventListener('click', function(){
+    document.getElementById('overlay').classList.remove('show');
+  });
+  document.getElementById('overlay').addEventListener('click', function(e){
+    if(e.target === this) this.classList.remove('show');
+  });
+
+  // 파트너/로고/브로슈어 추적
+  document.querySelectorAll('.partner').forEach(function(el, i){
+    el.addEventListener('click', function(){ track('click_partner', 'partner_'+(i+1)); });
+  });
+  var kobn = document.querySelector('.logo-wrap');
+  if(kobn){ kobn.addEventListener('click', function(){ track('click_kobn_logo','kobn'); }); }
+  document.querySelectorAll('.brochure a').forEach(function(el, i){
+    el.addEventListener('click', function(){ track('click_brochure', 'brochure_'+(i+1)); });
   });
 </script>
 </body>
